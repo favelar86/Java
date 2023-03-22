@@ -1,13 +1,8 @@
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +13,7 @@ public class ListaFilmes {
 
 	public static void main(String[] args) throws Exception {
 		
-		String apiKey = "Key";
+		String apiKey = "k_gcmf5wh9";
 		URI apiIMDB = URI.create("https://imdb-api.com/en/API/Top250TVs/" + apiKey);
 		
 		HttpClient client = HttpClient.newHttpClient();
@@ -28,23 +23,13 @@ public class ListaFilmes {
 		String json = response.body();
 		
 		String[] moviesArray = parseJsonMovies(json);
-	
+		System.out.println(json);
 		List<String> titles = parseTitles(moviesArray);
 		List<String> urlImages = parseUrlImages(moviesArray);
 		List<String> rating = parseRating(moviesArray);
 		List<String> year = parseYear(moviesArray);
 		
-		ArrayList<Filmes> filmes = MontaObjeto(titles, urlImages, rating, year);
-		
-		try {
-            Writer writer = new PrintWriter("filmes.html");
-            HTMLGenerator htmlGenerator = new HTMLGenerator(writer);
-            htmlGenerator.generate(filmes);
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+		year.forEach(System.out::println);
 	}
 	
 	private static String[] parseJsonMovies(String json) {
@@ -86,23 +71,36 @@ public class ListaFilmes {
 		return parseAttribute(moviesArray, 4);
 	}
 	
-	private static ArrayList<Filmes> MontaObjeto(
-			List<String> titles,
-			List<String> urlImages,
-			List<String> rating,
-			List<String> year){
+	private static ArrayList<Filmes> MontaObjeto(String stringFilmes) {
 		
 		ArrayList<Filmes> filmes = new ArrayList<Filmes>();
 		
-		for (int i = 0; i < titles.size(); i++) {
+		for (String fi : stringFilmes.split(",")) {
 			Filmes filme = new Filmes();
+			System.out.println(fi);
+//			if(fi.substring(1,5).equals("title")) {
+//				String titulo = fi.substring(9);
+//				filme.setTitulo(titulo.substring(0, titulo.length()-1));
+//			}
 			
-			filme.setTitulo(titles.get(i));
-			filme.setUrl(urlImages.get(i));
-			filme.setNota(Double.parseDouble(rating.get(i)));
-			filme.setAno(Integer.parseInt(year.get(i)));
+//			if(fi.substring(1,5).equals("image")) {
+//				String urlImagem = fi.substring(9);
+//				filme.setUrl(urlImagem.substring(0, urlImagem.length()-1));
+//			}
+//			
+//			if(fi.substring(1,10).equals("imDbRating")) {
+//				String nota = fi.substring(14);
+//				filme.setNota(Double.parseDouble((nota.substring(0, nota.length()-1))));
+//			}
+//			
+//			if(fi.substring(1,4).equals("year")) {
+//				String ano = fi.substring(8);
+//				filme.setAno(Integer.parseInt((ano.substring(0, ano.length()-1))));
+//			}
 			
-			filmes.add(filme);
+			if (filme.getTitulo() != null) {
+				filmes.add(filme);	
+			}
 		}
 
 		return filmes;	

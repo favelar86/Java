@@ -1,13 +1,8 @@
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +13,7 @@ public class ListaFilmes {
 
 	public static void main(String[] args) throws Exception {
 		
-		String apiKey = "Key";
+		String apiKey = "k_gcmf5wh9";
 		URI apiIMDB = URI.create("https://imdb-api.com/en/API/Top250TVs/" + apiKey);
 		
 		HttpClient client = HttpClient.newHttpClient();
@@ -36,14 +31,7 @@ public class ListaFilmes {
 		
 		ArrayList<Filmes> filmes = MontaObjeto(titles, urlImages, rating, year);
 		
-		try {
-            Writer writer = new PrintWriter("filmes.html");
-            HTMLGenerator htmlGenerator = new HTMLGenerator(writer);
-            htmlGenerator.generate(filmes);
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+		System.out.println(filmes.toString());
 
 	}
 	
