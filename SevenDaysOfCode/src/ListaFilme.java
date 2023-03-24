@@ -26,8 +26,8 @@ public class ListaFilme {
 			
 			filme.setTitulo(titles.get(i));
 			filme.setUrl(urlImages.get(i));
-			filme.setNota(Double.parseDouble(rating.get(i)));
-			filme.setAno(Integer.parseInt(year.get(i)));
+			filme.setNota((rating.get(i)));
+			filme.setAno((year.get(i)));
 			
 			filmes.add(filme);
 		}

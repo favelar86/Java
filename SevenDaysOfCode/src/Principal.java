@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Principal {
 
@@ -15,6 +16,8 @@ public class Principal {
 		
 		ListaFilme listaFilme = new ListaFilme(moviesArray);
 		ArrayList<Filmes> filmes = listaFilme.MontaObjeto();
+		
+		Collections.sort(filmes);
 		
 		try {
             Writer writer = new PrintWriter("filmes.html");

@@ -1,9 +1,9 @@
-public class Filmes {
+public class Filmes implements Comparable<Filmes> {
 	
 	private String titulo;
 	private String url;
-	private Double nota;
-	private int ano;
+	private String nota;
+	private String ano;
 	
 	public Filmes() {
 		super();
@@ -25,24 +25,29 @@ public class Filmes {
 		this.url = url;
 	}
 
-	public Double getNota() {
+	public String getNota() {
 		return nota;
 	}
 
-	public void setNota(Double nota) {
+	public void setNota(String nota) {
 		this.nota = nota;
 	}
 
-	public int getAno() {
+	public String getAno() {
 		return ano;
 	}
 
-	public void setAno(int ano) {
+	public void setAno(String ano) {
 		this.ano = ano;
 	}
 
 	@Override
 	public String toString() {
 		return "Filme = [titulo=" + titulo + ", url=" + url + ", nota=" + nota + ", ano=" + ano + "] \n";
+	}
+
+	public int compareTo(Filmes filme) {
+
+		return this.titulo.compareTo(filme.getTitulo());
 	}	
 }
